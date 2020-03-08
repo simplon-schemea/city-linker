@@ -30,7 +30,7 @@ export function Map() {
             console.log(event.deltaX, event.deltaY, event.deltaZ);
             setCursor({
                 ...cursor,
-                radius: Math.max(cursor.radius - event.deltaY / 100, 1),
+                radius: Math.max(cursor.radius - event.deltaY / 50, 1),
             });
         }
     }, [ cursor ]);
