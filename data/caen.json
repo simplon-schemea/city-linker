@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Caen",
+    "À": "Marseille",
+    "Distance": "1001 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Nîmes",
+    "Distance": "940 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Ajaccio",
+    "Distance": "1480 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Paris",
+    "Distance": "236 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Perpignan",
+    "Distance": "1017 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Annecy",
+    "Distance": "786 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Besançon",
+    "Distance": "636 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Toulouse",
+    "Distance": "841 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Toulon",
+    "Distance": "1067 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Brest",
+    "Distance": "371 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Aix-en-Provence",
+    "Distance": "985 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Nice",
+    "Distance": "1158 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Calais",
+    "Distance": "347 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Le Mans",
+    "Distance": "160 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Angers",
+    "Distance": "246 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Le Havre",
+    "Distance": "96 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Saint-Étienne",
+    "Distance": "721 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Nantes",
+    "Distance": "288 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Dijon",
+    "Distance": "543 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Montpellier",
+    "Distance": "913 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Amiens",
+    "Distance": "252 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Nancy",
+    "Distance": "583 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Lyon",
+    "Distance": "691 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Rennes",
+    "Distance": "182 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Bordeaux",
+    "Distance": "602 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Metz",
+    "Distance": "567 km"
+  },
+  {
+    "De": "Caen",
+    "À": "Clermont-Ferrand",
+    "Distance": "588 km"
+  }
+]

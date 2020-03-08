@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Dijon",
+    "À": "Marseille",
+    "Distance": "504 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Nîmes",
+    "Distance": "440 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Ajaccio",
+    "Distance": "983 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Paris",
+    "Distance": "313 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Perpignan",
+    "Distance": "642 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Annecy",
+    "Distance": "263 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Besançon",
+    "Distance": "94 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Toulouse",
+    "Distance": "648 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Toulon",
+    "Distance": "567 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Brest",
+    "Distance": "860 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Aix-en-Provence",
+    "Distance": "488 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Nice",
+    "Distance": "661 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Calais",
+    "Distance": "567 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Le Mans",
+    "Distance": "479 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Caen",
+    "Distance": "543 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Angers",
+    "Distance": "551 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Le Havre",
+    "Distance": "502 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Saint-Étienne",
+    "Distance": "253 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Nantes",
+    "Distance": "639 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Montpellier",
+    "Distance": "493 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Amiens",
+    "Distance": "470 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Nancy",
+    "Distance": "217 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Lyon",
+    "Distance": "194 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Rennes",
+    "Distance": "618 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Bordeaux",
+    "Distance": "645 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Metz",
+    "Distance": "267 km"
+  },
+  {
+    "De": "Dijon",
+    "À": "Clermont-Ferrand",
+    "Distance": "331 km"
+  }
+]

@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Rennes",
+    "À": "Marseille",
+    "Distance": "1046 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Nîmes",
+    "Distance": "961 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Ajaccio",
+    "Distance": "1525 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Paris",
+    "Distance": "347 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Perpignan",
+    "Distance": "901 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Annecy",
+    "Distance": "862 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Besançon",
+    "Distance": "716 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Toulouse",
+    "Distance": "697 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Toulon",
+    "Distance": "1106 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Brest",
+    "Distance": "241 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Aix-en-Provence",
+    "Distance": "1030 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Nice",
+    "Distance": "1203 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Calais",
+    "Distance": "529 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Le Mans",
+    "Distance": "153 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Caen",
+    "Distance": "182 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Angers",
+    "Distance": "125 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Le Havre",
+    "Distance": "279 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Saint-Étienne",
+    "Distance": "712 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Nantes",
+    "Distance": "107 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Dijon",
+    "Distance": "618 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Montpellier",
+    "Distance": "912 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Amiens",
+    "Distance": "435 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Nancy",
+    "Distance": "721 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Lyon",
+    "Distance": "736 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Bordeaux",
+    "Distance": "459 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Metz",
+    "Distance": "670 km"
+  },
+  {
+    "De": "Rennes",
+    "À": "Clermont-Ferrand",
+    "Distance": "589 km"
+  }
+]

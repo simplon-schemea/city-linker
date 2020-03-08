@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Bordeaux",
+    "À": "Marseille",
+    "Distance": "646 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Nîmes",
+    "Distance": "533 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Ajaccio",
+    "Distance": "1122 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Paris",
+    "Distance": "582 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Perpignan",
+    "Distance": "447 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Annecy",
+    "Distance": "687 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Besançon",
+    "Distance": "699 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Toulouse",
+    "Distance": "245 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Toulon",
+    "Distance": "711 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Brest",
+    "Distance": "644 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Aix-en-Provence",
+    "Distance": "631 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Nice",
+    "Distance": "803 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Calais",
+    "Distance": "867 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Le Mans",
+    "Distance": "442 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Caen",
+    "Distance": "602 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Angers",
+    "Distance": "396 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Le Havre",
+    "Distance": "651 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Saint-Étienne",
+    "Distance": "532 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Nantes",
+    "Distance": "347 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Dijon",
+    "Distance": "645 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Montpellier",
+    "Distance": "480 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Amiens",
+    "Distance": "717 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Nancy",
+    "Distance": "901 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Lyon",
+    "Distance": "552 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Rennes",
+    "Distance": "459 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Metz",
+    "Distance": "904 km"
+  },
+  {
+    "De": "Bordeaux",
+    "À": "Clermont-Ferrand",
+    "Distance": "372 km"
+  }
+]

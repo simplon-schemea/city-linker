@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Brest",
+    "À": "Marseille",
+    "Distance": "1283 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Nîmes",
+    "Distance": "1170 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Ajaccio",
+    "Distance": "1762 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Paris",
+    "Distance": "589 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Perpignan",
+    "Distance": "1084 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Annecy",
+    "Distance": "1104 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Besançon",
+    "Distance": "959 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Toulouse",
+    "Distance": "882 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Toulon",
+    "Distance": "1348 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Aix-en-Provence",
+    "Distance": "1267 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Nice",
+    "Distance": "1440 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Calais",
+    "Distance": "718 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Le Mans",
+    "Distance": "396 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Caen",
+    "Distance": "371 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Angers",
+    "Distance": "377 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Le Havre",
+    "Distance": "467 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Saint-Étienne",
+    "Distance": "951 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Nantes",
+    "Distance": "297 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Dijon",
+    "Distance": "860 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Montpellier",
+    "Distance": "1121 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Amiens",
+    "Distance": "623 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Nancy",
+    "Distance": "964 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Lyon",
+    "Distance": "971 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Rennes",
+    "Distance": "241 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Bordeaux",
+    "Distance": "644 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Metz",
+    "Distance": "912 km"
+  },
+  {
+    "De": "Brest",
+    "À": "Clermont-Ferrand",
+    "Distance": "823 km"
+  }
+]

@@ -1,0 +1,137 @@
+[
+  {
+    "De": "Saint-Étienne",
+    "À": "Marseille",
+    "Distance": "333 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Nîmes",
+    "Distance": "271 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Ajaccio",
+    "Distance": "812 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Paris",
+    "Distance": "522 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Perpignan",
+    "Distance": "470 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Annecy",
+    "Distance": "186 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Besançon",
+    "Distance": "311 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Toulouse",
+    "Distance": "535 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Toulon",
+    "Distance": "398 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Brest",
+    "Distance": "951 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Aix-en-Provence",
+    "Distance": "319 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Nice",
+    "Distance": "490 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Calais",
+    "Distance": "815 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Le Mans",
+    "Distance": "561 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Caen",
+    "Distance": "721 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Angers",
+    "Distance": "574 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Le Havre",
+    "Distance": "720 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Nantes",
+    "Distance": "664 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Dijon",
+    "Distance": "253 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Montpellier",
+    "Distance": "322 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Amiens",
+    "Distance": "658 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Nancy",
+    "Distance": "466 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Lyon",
+    "Distance": "64 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Rennes",
+    "Distance": "712 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Bordeaux",
+    "Distance": "532 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Metz",
+    "Distance": "516 km"
+  },
+  {
+    "De": "Saint-Étienne",
+    "À": "Clermont-Ferrand",
+    "Distance": "144 km"
+  }
+]
