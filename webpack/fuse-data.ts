@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { DataSource } from "./data-source";
 import { Compiler } from "webpack";
 import { RawSource } from "webpack-sources";
-import { Data, Distance } from "../src/client/model/data";
+import { JSONDistanceData, JSONDistance } from "@model/distance-data";
 
 function parseDistance(value: string) {
     const units = {
@@ -29,7 +29,7 @@ function parseDistance(value: string) {
 }
 
 function fuse() {
-    const out: Data = {};
+    const out: JSONDistanceData = {};
     const dir = path.join(__dirname, "../data");
 
     for (let file of fs.readdirSync(dir)) {
@@ -37,7 +37,7 @@ function fuse() {
         const distances: DataSource.Distance[] = JSON.parse(fs.readFileSync(filepath, "utf-8"));
 
         for (let distance of distances) {
-            const entries = out[distance.De] || (out[distance.De] = [] as Distance[]);
+            const entries = out[distance.De] || (out[distance.De] = [] as JSONDistance[]);
 
             entries.push({
                 name: distance.À,

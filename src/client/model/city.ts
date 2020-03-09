@@ -1,6 +1,4 @@
-import { Point } from "./point";
-
 export interface City {
+    id: number
     name: string
-    coordinates: Point
 }

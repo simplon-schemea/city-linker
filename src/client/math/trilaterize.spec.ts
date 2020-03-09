@@ -1,4 +1,4 @@
-import { ReferencePoint } from "./model/reference-point";
+import { ReferencePoint } from "@model/reference-point";
 import { trilaterize } from "./trilaterize";
 
 describe("trilaterize", function () {

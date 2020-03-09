@@ -42,8 +42,11 @@
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
      "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
      "paths": {
-       "@data/*": ["json/*"],
-       "@components/*": ["src/components/*"]
+       "@model/*": ["src/client/model/*"],
+       "@utility/*": ["src/client/utility/*"],
+       "@services/*": ["src/client/services/*"],
+       "@store/*": ["src/client/store/*"],
+       "@components/*": ["src/client/components/*"]
      },                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */

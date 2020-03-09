@@ -8,7 +8,7 @@ import nodeExternals from "webpack-node-externals";
 const config = {
     ...webpackConfig,
     entry: {
-        server: path.join(__dirname, "index.ts"),
+        server: path.join(__dirname, "mouse.ts"),
     },
     output: {
         path: path.join(ROOT, "dist"),
