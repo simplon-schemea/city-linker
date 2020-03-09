@@ -1,43 +1,95 @@
 import "./map.scss";
-import React, { MouseEvent, useCallback, useState, WheelEvent } from "react";
-import { Point } from "../model/point";
+import React, { Fragment, MouseEvent, useEffect, useMemo, useState } from "react";
+import { Point } from "@model/point";
+import { DataService } from "@services/data.service";
+import { connect } from "react-redux";
+import { State } from "@store/reducer";
+import { Distance } from "@model/distance-data";
+import { CityElement } from "./city";
 
-function createCityElement(cursor: Cursor) {
-    return <circle cx={ cursor.x } cy={ cursor.y } r={ cursor.radius } opacity={ 0.25 }/>;
+interface InnerProps {
+    references: [ string, string, string ]
+    coordinates: State["coordinates"]
+    cities: State["cities"]
 }
 
-interface Cursor extends Point {
-    radius: number
-}
+export const MapElement = connect(
+    (state: State): InnerProps => {
+        return {
+            references: [ "Paris", "Brest", "Toulouse" ],
+            coordinates: state.coordinates,
+            cities: state.cities,
+        };
+    },
+)(
+    function (props: InnerProps) {
+        useEffect(DataService.loadDistances, []);
 
-export function Map() {
-    const [ cursor, setCursor ] = useState<Cursor>();
+        const references = useMemo(function () {
+            try {
+                return props.references.map(name => Distance.find(name));
+            } catch (e) {
+                return null;
+            }
+        }, [ props.cities, props.references ]);
 
-    const onMouseMove = useCallback(function (event: MouseEvent) {
-        setCursor({
-            x: event.clientX,
-            y: event.clientY,
-            radius: cursor?.radius || 10,
-        });
-    }, [ cursor ]);
+        const coordinates = useMemo(() => Object.entries(props.coordinates), [ props.coordinates ]);
 
-    const onMouseLeave = useCallback(function () {
-        setCursor(undefined);
-    }, [ cursor ]);
+        const [ cursor, setCursor ] = useState<{ id: number, position: Point }>();
 
-    const onWheel = useCallback(function (event: WheelEvent) {
-        if (cursor) {
-            console.log(event.deltaX, event.deltaY, event.deltaZ);
-            setCursor({
-                ...cursor,
-                radius: Math.max(cursor.radius - event.deltaY / 50, 1),
-            });
+        const callbacks = useMemo(function () {
+            if (coordinates.length > 2 || !references) {
+                setCursor(undefined);
+
+                return {
+                    onMouseLeave: undefined,
+                    onMouseMove: undefined,
+                };
+            }
+
+            return {
+                onMouseMove(event: MouseEvent) {
+                    setCursor({
+                        position: {
+                            x: event.clientX,
+                            y: event.clientY,
+                        },
+                        id: references[coordinates.length].id,
+                    });
+                },
+
+                onMouseLeave() {
+                    setCursor(undefined);
+                },
+            };
+        }, [ coordinates, references ]);
+
+        const cursorElement = useMemo(function () {
+            if (cursor) {
+                return <CityElement id={ cursor?.id } position={ cursor?.position } cursorMode={ true }/>;
+            } else {
+                return undefined;
+            }
+        }, [ cursor ]);
+
+        const cities = useMemo(function () {
+            return coordinates.map(([ id, coordinates ]) => <CityElement key={ id } id={ parseInt(id) } position={ coordinates }/>);
+        }, [ coordinates ]);
+
+        if (!references) {
+            return (
+                <Fragment>
+                    Loading...
+                </Fragment>
+            );
         }
-    }, [ cursor ]);
 
-    return (
-        <svg className="map-container" onMouseLeave={ onMouseLeave } onMouseMove={ onMouseMove } onWheel={ onWheel }>
-            { cursor && createCityElement(cursor) }
-        </svg>
-    );
-}
+        return (
+            <svg className="map-container" onMouseLeave={ callbacks.onMouseLeave } onMouseMove={ callbacks.onMouseMove }>
+                { cursorElement }
+                { cities }
+            </svg>
+        );
+    },
+);
+

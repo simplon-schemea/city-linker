@@ -1,5 +1,5 @@
-import { ReferencePoint } from "./model/reference-point";
-import { Point } from "./model/point";
+import { ReferencePoint } from "@model/reference-point";
+import { Point } from "@model/point";
 
 export function trilaterize(...references: [ ReferencePoint, ReferencePoint, ReferencePoint ]): Point {
     const [ A, B, C ] = references;
