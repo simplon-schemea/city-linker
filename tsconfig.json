@@ -43,6 +43,7 @@
      "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
      "paths": {
        "@model/*": ["src/client/model/*"],
+       "@utility/*": ["src/client/utility/*"],
        "@services/*": ["src/client/services/*"],
        "@store/*": ["src/client/store/*"],
        "@components/*": ["src/client/components/*"]

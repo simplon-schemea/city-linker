@@ -21,7 +21,11 @@ export const actions = {
     },
 
     updateCoordinates(id: number, coordinates: Point) {
-        return createAction("[UI] Update Coordinates", { id, coordinates });
+        return createAction("[DATA] Update Coordinates", { id, coordinates });
+    },
+
+    updateScale(scale: number) {
+        return createAction("[DATA] Update Scale", { scale });
     },
 };
 

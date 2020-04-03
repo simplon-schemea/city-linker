@@ -7,12 +7,18 @@ export interface State {
     distances: DistanceData
     cities: { [k: number]: City }
     coordinates: { [k: number]: Point }
+    map: {
+        scale: number
+    }
 }
 
 const initialState: State = {
     distances: {},
     cities: {},
     coordinates: {},
+    map: {
+        scale: 1,
+    },
 };
 
 export function reducer(state: State = initialState, action: Actions): State {
@@ -23,13 +29,21 @@ export function reducer(state: State = initialState, action: Actions): State {
                 cities: action.cities,
                 distances: action.data,
             };
-        case "[UI] Update Coordinates":
+        case "[DATA] Update Coordinates":
             return {
                 ...state,
                 coordinates: {
                     ...state.coordinates,
                     [action.id]: action.coordinates,
                 },
+            };
+        case "[DATA] Update Scale":
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    scale: action.scale
+                }
             };
         default:
             return state;

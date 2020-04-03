@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { State } from "@store/reducer";
 import { Distance } from "@model/distance-data";
 import { CityElement } from "./city";
+import { mapMouseToPoint } from "@utility/mouse";
 
 interface InnerProps {
     references: [ string, string, string ]
@@ -13,10 +14,12 @@ interface InnerProps {
     cities: State["cities"]
 }
 
+const references: [ string, string, string ] = [ "Paris", "Brest", "Toulouse" ];
+
 export const MapElement = connect(
     (state: State): InnerProps => {
         return {
-            references: [ "Paris", "Brest", "Toulouse" ],
+            references,
             coordinates: state.coordinates,
             cities: state.cities,
         };
@@ -27,33 +30,41 @@ export const MapElement = connect(
 
         const references = useMemo(function () {
             try {
-                return props.references.map(name => Distance.find(name));
+                return props.references.map(name => Distance.find(name)).map(value => ({
+                    ...value,
+                    coordinates: props.coordinates[value.id],
+                }));
             } catch (e) {
                 return null;
             }
-        }, [ props.cities, props.references ]);
+        }, [ props.cities, props.references, props.coordinates ]);
+
+        useEffect(function () {
+            if (references) {
+                const [ a, b ] = references;
+                if (a.coordinates && b.coordinates) {
+                    const scale = DataService.computeScale(a.id, b.id);
+                    if (scale) {
+                        DataService.updateScale(scale);
+                    }
+                }
+            }
+        }, [ references ]);
 
         const coordinates = useMemo(() => Object.entries(props.coordinates), [ props.coordinates ]);
-
         const [ cursor, setCursor ] = useState<{ id: number, position: Point }>();
 
         const callbacks = useMemo(function () {
             if (coordinates.length > 2 || !references) {
                 setCursor(undefined);
 
-                return {
-                    onMouseLeave: undefined,
-                    onMouseMove: undefined,
-                };
+                return {};
             }
 
             return {
                 onMouseMove(event: MouseEvent) {
                     setCursor({
-                        position: {
-                            x: event.clientX,
-                            y: event.clientY,
-                        },
+                        position: mapMouseToPoint(event, "client"),
                         id: references[coordinates.length].id,
                     });
                 },
@@ -62,11 +73,11 @@ export const MapElement = connect(
                     setCursor(undefined);
                 },
             };
-        }, [ coordinates, references ]);
+        }, [ coordinates, references, setCursor ]);
 
         const cursorElement = useMemo(function () {
             if (cursor) {
-                return <CityElement id={ cursor?.id } position={ cursor?.position } cursorMode={ true }/>;
+                return <CityElement id={ cursor.id } position={ cursor.position } cursorMode={ true }/>;
             } else {
                 return undefined;
             }
