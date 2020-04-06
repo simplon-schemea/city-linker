@@ -8,7 +8,7 @@ export interface State {
     cities: { [k: number]: City }
     coordinates: { [k: number]: Point }
     map: {
-        scale: number
+        scale?: number
     }
 }
 
@@ -16,9 +16,7 @@ const initialState: State = {
     distances: {},
     cities: {},
     coordinates: {},
-    map: {
-        scale: 1,
-    },
+    map: {},
 };
 
 export function reducer(state: State = initialState, action: Actions): State {

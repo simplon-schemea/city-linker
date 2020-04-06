@@ -3,6 +3,7 @@ import { actions } from "@store/actions";
 import { Distance, DistanceData, JSONDistanceData } from "@model/distance-data";
 import { Point } from "@model/point";
 import { State } from "@store/reducer";
+import { City } from "@model/city";
 
 export namespace DataService {
     export function loadDistances() {
@@ -52,6 +53,10 @@ export namespace DataService {
         return store.getState().cities[id];
     }
 
+    export function getCityByName(name: string) {
+        return Object.values<City>(store.getState().cities).find(city => city.name === name);
+    }
+
     export function getDistance(...ids: [ number, number ]) {
         let state: State = store.getState();
         const [ a, b ] = ids;
@@ -60,7 +65,7 @@ export namespace DataService {
     }
 
     export function getScaledDistance(...ids: [ number, number ]) {
-        return getDistance(...ids) * getScale();
+        return getDistance(...ids) / getScale();
     }
 
     export function getDistanceMap(id: number) {

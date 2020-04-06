@@ -1,10 +1,9 @@
-import React, { Fragment, useCallback } from "react";
+import React from "react";
 import { Point } from "@model/point";
 import { connect } from "react-redux";
 import { City } from "@model/city";
 import { State } from "@store/reducer";
-import { store } from "@store/index";
-import { actions } from "@store/actions";
+import { If } from "../logic/if";
 
 interface OuterProps {
     id: number
@@ -17,7 +16,7 @@ interface InnerProps {
     city: City
     position: Point
     radius: number
-    cursorMode?: boolean
+    opacity?: number
 }
 
 export const CityElement = connect(
@@ -26,30 +25,21 @@ export const CityElement = connect(
 
         return ({
             city,
-            position: props.position || {} as Point,
+            position: props.position || state.coordinates[props.id],
             radius: props.radius || 7,
         });
     },
 )(
     function (props: InnerProps) {
-        const onClick = useCallback(function (event: React.MouseEvent) {
-            if (props.cursorMode) {
-                store.dispatch(actions.updateCoordinates(props.city.id, {
-                    x: event.clientX,
-                    y: event.clientY,
-                }));
-            }
-        }, [ props.cursorMode, props.city.id ]);
-
         return (
-            <Fragment>
-                <g opacity={ props.cursorMode ? 0.5 : undefined }>
+            <If condition={ !!props.position }>
+                <g opacity={ props.opacity }>
                     <text x={ props.position.x } textAnchor="middle" y={ props.position.y - 15 }>
                         { props.city.name }
                     </text>
-                    <circle cx={ props.position.x } cy={ props.position.y } r={ props.radius } onClick={ onClick }/>
+                    <circle cx={ props.position.x } cy={ props.position.y } r={ props.radius }/>
                 </g>
-            </Fragment>
+            </If>
         );
     },
 );
