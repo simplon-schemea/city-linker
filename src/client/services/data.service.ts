@@ -34,7 +34,7 @@ export namespace DataService {
                                 distance: value.distance,
                             };
 
-                            if (distance.id) {
+                            if (typeof distance.id === "number") {
                                 map[distance.id] = distance;
                             }
                         }

@@ -3,8 +3,8 @@ import path from "path";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyWebpackPlugin from "copy-webpack-plugin";
-import { FuseDataWebpackPlugin } from "../../webpack/fuse-data";
 import { ROOT } from "../../shared/config";
+import { GPSDataWebpackPlugin } from "../../webpack/gps-data";
 
 const config = {
     ...webpackConfig,
@@ -20,7 +20,7 @@ const config = {
             from: path.join(ROOT, "assets"),
             to: "assets",
         } ]),
-        new FuseDataWebpackPlugin(),
+        new GPSDataWebpackPlugin(),
     ]
 };
 

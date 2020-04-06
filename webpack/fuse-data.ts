@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { DataSource } from "./data-source";
 import { Compiler } from "webpack";
 import { RawSource } from "webpack-sources";
-import { JSONDistanceData, JSONDistance } from "@model/distance-data";
+import { JSONDistance, JSONDistanceData } from "@model/distance-data";
 
 function parseDistance(value: string) {
     const units = {
@@ -30,7 +30,7 @@ function parseDistance(value: string) {
 
 function fuse() {
     const out: JSONDistanceData = {};
-    const dir = path.join(__dirname, "../data");
+    const dir = path.join(__dirname, "../data/distances");
 
     for (let file of fs.readdirSync(dir)) {
         const filepath = path.join(dir, file);

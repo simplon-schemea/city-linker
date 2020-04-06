@@ -31,7 +31,7 @@ export const MapElement = connect(
         useEffect(DataService.loadDistances, []);
 
         const referenceCitiesId = useMemo(function () {
-            return referencesCityNames.map(DataService.getCityByName).map(city => city?.id).filter(value => !!value);
+            return referencesCityNames.map(DataService.getCityByName).map(city => city?.id).filter(value => typeof value === "number");
         }, [ referencesCityNames, props.cities ]) as [ number, number, number ];
 
         const [ SVGRef, setSVGRef ] = useState<SVGSVGElement | null>(null);
