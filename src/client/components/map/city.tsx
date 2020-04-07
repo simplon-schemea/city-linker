@@ -9,7 +9,7 @@ interface OuterProps {
     id: number
     position?: Point
     radius?: number
-    cursorMode?: boolean
+    opacity?: number
 }
 
 interface InnerProps {
@@ -27,6 +27,7 @@ export const CityElement = connect(
             city,
             position: props.position || state.coordinates[props.id],
             radius: props.radius || 7,
+            opacity: props.opacity,
         });
     },
 )(

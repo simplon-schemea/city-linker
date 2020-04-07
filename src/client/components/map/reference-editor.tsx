@@ -1,3 +1,4 @@
+import "./reference-editor.scss";
 import { connect } from "react-redux";
 import { State } from "@store/reducer";
 import React, { useEffect, useMemo, useState } from "react";
@@ -11,6 +12,9 @@ import { mapMouseToPoint } from "../../core/mouse";
 import { store } from "@store/index";
 import { actions } from "@store/actions";
 import { DistanceVisualizeComponent } from "./distance-visualizer";
+import { DistanceRadialGradientDefinition } from "./defs/distance-radial-gradient";
+import { CSSTransition } from "react-transition-group";
+import classNames from "classnames";
 
 interface CityData {
     id: number
@@ -28,6 +32,8 @@ interface InnerProps {
     svg: SVGSVGElement
     scale?: number
 }
+
+const distanceGradientID = "distance-gradient";
 
 export const ReferenceEditorComponent = connect(
     (state: State, props: OuterProps): InnerProps => ({
@@ -93,7 +99,7 @@ export const ReferenceEditorComponent = connect(
         return function () {
             cleaner.forEach(cleaner => cleaner());
         };
-    }, [ props.svg, setCursor, placedCities.length ]);
+    }, [ props.svg, setCursor, placedCities.length, SVGMapper ]);
 
     useEffect(function () {
         if (placedCities.length < 2) {
@@ -109,7 +115,7 @@ export const ReferenceEditorComponent = connect(
 
     const cursorCity = useMemo(function () {
         const data = props.references[placedCities.length];
-        return data && cursor ? <CityElement id={ data.id } position={ cursor } cursorMode={ true }/> : null;
+        return data && cursor ? <CityElement id={ data.id } position={ cursor } opacity={ 0.75 }/> : null;
     }, [ placedCities.length, cursor, SVGMapper ]);
 
     const distanceVisualizer = useMemo(function () {
@@ -117,7 +123,20 @@ export const ReferenceEditorComponent = connect(
             return placedCities.map(id => {
                 const distance = DataService.getDistance(id, props.references[2].id) / (props.scale || 1);
                 const position = DataService.getCoordinates(id);
-                return <DistanceVisualizeComponent center={ position } radius={ distance } key={ id }/>;
+
+                return (
+                    <CSSTransition in={ true } timeout={ 250 } key={ id }>
+                        {
+                            state => (
+                                <DistanceVisualizeComponent className={ classNames("distance-visualizer", state) } center={ position }
+                                                            fill={ `url(#${ distanceGradientID })` }
+                                                            style={ { transformOrigin: `${ position.x }px ${ position.y }px` } }
+                                                            radius={ distance }
+                                />
+                            )
+                        }
+                    </CSSTransition>
+                );
             });
         }
 
@@ -141,6 +160,9 @@ export const ReferenceEditorComponent = connect(
 
     return (
         <>
+            <defs>
+                <DistanceRadialGradientDefinition id={ distanceGradientID }/>
+            </defs>
             { cities }
             { distanceVisualizer }
             { cursorCity }
