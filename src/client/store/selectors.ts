@@ -1,5 +1,5 @@
 import { State } from "./reducer";
-import { ID } from "../math/id";
+import { ID } from "@model/id";
 import { createSelector } from "reselect";
 import { Point } from "@model/point";
 

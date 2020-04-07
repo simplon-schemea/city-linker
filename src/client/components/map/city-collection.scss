@@ -1,0 +1,29 @@
+.city-collection-container {
+  .link {
+    stroke-width: 2;
+    stroke: #999;
+    transition: stroke 300ms;
+
+    &.active, &:hover {
+      stroke: #555;
+    }
+
+    &:not(.active) {
+      transition: stroke 300ms, x2 ease-out 500ms, y2 ease-out 500ms;
+    }
+  }
+
+  .link-group {
+    cursor: pointer;
+
+    .link:first-child {
+      visibility: hidden;
+      pointer-events: all;
+      stroke-width: 25;
+    }
+
+    &:hover > .link {
+      stroke: #333;
+    }
+  }
+}

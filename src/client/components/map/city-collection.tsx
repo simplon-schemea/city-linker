@@ -1,3 +1,4 @@
+import "./city-collection.scss";
 import React, { useEffect, useMemo, useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { State } from "@store/reducer";
@@ -5,7 +6,7 @@ import { CityComponent } from "./city";
 import { selectors } from "@store/selectors";
 import { DataService } from "@services/data.service";
 import { Point } from "@model/point";
-import { ID } from "../../math/id";
+import { ID } from "@model/id";
 import { City } from "@model/city";
 import { store } from "@store/index";
 import { actions } from "@store/actions";
@@ -71,7 +72,7 @@ export const CityCollectionComponent = connect(
     });
 
     const currentLink = useMemo(function () {
-        if (typeof peer !== "number" || !cursor) {
+        if (!peer || !cursor) {
             return null;
         }
 
@@ -79,8 +80,9 @@ export const CityCollectionComponent = connect(
 
         return (
             <line x1={ coordinates.x } y1={ coordinates.y }
-                  x2={ cursor.x } y2={ cursor.y } stroke="black" strokeWidth={ 2 }
+                  x2={ cursor.x } y2={ cursor.y }
                   style={ { pointerEvents: "none" } }
+                  className="link active"
             />
         );
     }, [ peer, cursor ]);
@@ -90,26 +92,31 @@ export const CityCollectionComponent = connect(
     const lines = useMemo(function () {
         return links
             .map(link => {
-                const a = selectors.coordinatesWithID(link.a)(state);
-                const b = selectors.coordinatesWithID(link.b)(state);
+                const [ a, b ] = link.map(id => selectors.coordinatesWithID(id)(state));
 
                 return {
-                    key: `${ link.a }-${ link.b }`,
-                    x1: a.x, y1: a.y,
-                    x2: b.x, y2: b.y,
+                    ids: link,
+                    key: `${ link[0] }-${ link[1] }`,
+                    coordinates: {
+                        x1: a.x, y1: a.y,
+                        x2: b.x, y2: b.y,
+                    },
                 };
             })
-            .map(props => (
-                <line { ...props } stroke="black" strokeWidth={ 2 }/>
+            .map(({ ids, key, coordinates }) => (
+                <g className="link-group" key={ key } onClick={ () => store.dispatch(actions.removeLink(ids[0], ids[1])) }>
+                    <line { ...coordinates } className="link"/>
+                    <line { ...coordinates } className="link"/>
+                </g>
             ));
     }, [ links ]);
 
 
     return (
-        <>
+        <g className="city-collection-container">
             { lines }
             { cities }
             { currentLink }
-        </>
+        </g>
     );
 });

@@ -11,7 +11,7 @@ import { actions } from "@store/actions";
 import { DistanceVisualizeComponent } from "./distance-visualizer";
 import { DistanceRadialGradientDefinition } from "./defs/distance-radial-gradient";
 import { selectors } from "@store/selectors";
-import { ID } from "../../math/id";
+import { ID } from "@model/id";
 
 interface CityData {
     id: ID

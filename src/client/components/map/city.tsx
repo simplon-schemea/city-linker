@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { City } from "@model/city";
 import { State } from "@store/reducer";
 import { selectors } from "@store/selectors";
-import { ID } from "../../math/id";
+import { ID } from "@model/id";
 
 interface OuterProps {
     id: ID

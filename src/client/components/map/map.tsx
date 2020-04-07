@@ -38,7 +38,7 @@ export const MapComponent = connect(
             return referencesCityNames
                 .map(name => selectors.cityWithName(name)(state))
                 .map(city => city?.id)
-                .filter(value => typeof value === "number");
+                .filter(value => !!value);
         }, [ referencesCityNames, props.cities ]) as [ number, number, number ];
 
         const [ SVGRef, setSVGRef ] = useState<SVGSVGElement | null>(null);

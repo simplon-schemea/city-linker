@@ -1,9 +1,8 @@
 import { Action } from "redux";
 import { DistanceData } from "@model/distance-data";
-import { City } from "@model/city";
 import { Point } from "@model/point";
-import { StateCoordinates } from "./reducer";
-import { ID } from "../math/id";
+import { Link, State, StateCoordinates } from "./reducer";
+import { ID } from "@model/id";
 
 function createAction<Type extends string>(type: Type): Action<Type>;
 function createAction<Type extends string, Props>(type: Type, props: Props): Action<Type> & Props;
@@ -15,7 +14,7 @@ function createAction(type: string, props = {}) {
 }
 
 export const actions = {
-    loadJSONData(cities: City[], data: DistanceData) {
+    loadJSONData(cities: State["cities"], data: DistanceData) {
         return createAction("[AJAX] Load Data", {
             cities,
             data,
@@ -35,7 +34,11 @@ export const actions = {
     },
 
     createLink(a: ID, b: ID) {
-        return createAction("[DATA] Create Link", { link: [ a, b ] });
+        return createAction("[DATA] Create Link", { link: [ a, b ] as Link });
+    },
+
+    removeLink(a: ID, b: ID) {
+        return createAction("[DATA] Remove Link", { link: [ a, b ] as Link });
     },
 };
 

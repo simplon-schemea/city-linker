@@ -2,14 +2,11 @@ import { DistanceData } from "@model/distance-data";
 import { Actions } from "./actions";
 import { City } from "@model/city";
 import { Point } from "@model/point";
-import { ID } from "../math/id";
+import { ID } from "@model/id";
 
 export type  StateCoordinates = { [k: number]: Point };
 
-export interface Link {
-    a: ID;
-    b: ID;
-}
+export type Link = [ ID, ID ];
 
 export interface State {
     distances: DistanceData
@@ -76,11 +73,17 @@ export function reducer(state: State = initialState, action: Actions): State {
                     ...state.map,
                     links: [
                         ...state.map.links,
-                        {
-                            a: action.link[0],
-                            b: action.link[1],
-                        },
+                        action.link,
                     ],
+                },
+            };
+
+        case "[DATA] Remove Link":
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    links: state.map.links.filter(ids => ids.some(id => !action.link.includes(id))),
                 },
             };
         default:
