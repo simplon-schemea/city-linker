@@ -2,6 +2,7 @@ import { Action } from "redux";
 import { DistanceData } from "@model/distance-data";
 import { City } from "@model/city";
 import { Point } from "@model/point";
+import { StateCoordinates } from "./reducer";
 
 function createAction<Type extends string>(type: Type): Action<Type>;
 function createAction<Type extends string, Props>(type: Type, props: Props): Action<Type> & Props;
@@ -22,6 +23,10 @@ export const actions = {
 
     updateCoordinates(id: number, coordinates: Point) {
         return createAction("[DATA] Update Coordinates", { id, coordinates });
+    },
+
+    bulkUpdateCoordinates(coordinates: StateCoordinates) {
+        return createAction("[DATA] Bulk Coordinates Update", { coordinates });
     },
 
     updateScale(scale: number) {

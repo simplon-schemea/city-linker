@@ -1,37 +1,44 @@
 import "./map.scss";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { connect } from "react-redux";
-import { State } from "@store/reducer";
+import { State, StateCoordinates } from "@store/reducer";
 import { ViewBox } from "../../core/viewbox";
 import { ReferenceEditorComponent } from "./reference-editor";
 import { DataService } from "@services/data.service";
-import { If } from "../logic/if";
+import { If } from "../core/if";
 import { CityCollectionComponent } from "./city-collection";
+import { selectors } from "@store/selectors";
+import { store } from "@store/index";
+import { SVGContext } from "../core/svg-context";
 
 const viewBox = new ViewBox(0, 0, 1040.906, 996.59);
 
 interface InnerProps {
     references: [ string, string, string ]
-    coordinates: State["coordinates"]
+    coordinates: StateCoordinates
     cities: State["cities"]
 }
 
 const referencesCityNames: [ string, string, string ] = [ "Paris", "Brest", "Toulouse" ];
 
-export const MapElement = connect(
+export const MapComponent = connect(
     (state: State): InnerProps => {
         return {
             references: referencesCityNames,
-            coordinates: state.coordinates,
+            coordinates: state.map.coordinates,
             cities: state.cities,
         };
     },
 )(
-    function (props: InnerProps) {
+    function Map(props: InnerProps) {
         useEffect(DataService.loadDistances, []);
 
         const referenceCitiesId = useMemo(function () {
-            return referencesCityNames.map(DataService.getCityByName).map(city => city?.id).filter(value => typeof value === "number");
+            const state = store.getState();
+            return referencesCityNames
+                .map(name => selectors.cityWithName(name)(state))
+                .map(city => city?.id)
+                .filter(value => typeof value === "number");
         }, [ referencesCityNames, props.cities ]) as [ number, number, number ];
 
         const [ SVGRef, setSVGRef ] = useState<SVGSVGElement | null>(null);
@@ -51,14 +58,14 @@ export const MapElement = connect(
 
         return (
             <svg className="map-container" ref={ setSVGRef } viewBox={ viewBox.toString() }>
-                <If condition={ !!SVGRef }>
-                    <If condition={ length < 3 }>
-                        <ReferenceEditorComponent root={ SVGRef as SVGSVGElement } cities={ referenceCitiesId }/>
-                    </If>
-                    <If condition={ length >= 3 }>
-                        <CityCollectionComponent/>
-                    </If>
-                </If>
+                { SVGRef && (
+                    <SVGContext.Provider value={ SVGRef }>
+                        <If condition={ length < 3 } timeout={ 2000 }>
+                            <ReferenceEditorComponent cities={ referenceCitiesId }/>
+                        </If>
+                        { length >= 3 && <CityCollectionComponent/> }
+                    </SVGContext.Provider>
+                ) }
             </svg>
         );
     },

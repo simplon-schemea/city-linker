@@ -1,66 +1,40 @@
 import React, { useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { State } from "@store/reducer";
-import { CityElement } from "./city";
-import { ReferencePoint } from "@model/reference-point";
+import { CityComponent } from "./city";
+import { selectors } from "@store/selectors";
 import { DataService } from "@services/data.service";
-import { trilaterize } from "../../math/trilaterize";
-import { store } from "@store/index";
-import { actions } from "@store/actions";
+import { Point } from "@model/point";
+import { ID } from "../../math/id";
+import { City } from "@model/city";
 
 interface InnerProps {
-    coordinates: State["coordinates"]
-    cities: State["cities"]
+    coordinatesList: [ ID, Point ][]
+    cityList: City[]
 }
 
 export const CityCollectionComponent = connect(
     (state: State): InnerProps => ({
-        coordinates: state.coordinates,
-        cities: state.cities,
+        coordinatesList: selectors.coordinatesList(state),
+        cityList: selectors.cityList(state),
     }),
-)(function (props: InnerProps) {
-    const cities = useMemo(function () {
-        return Object.keys(props.coordinates).map(id => (
-            <CityElement id={ parseInt(id) } key={ id }/>
-        ));
-    }, [ props.coordinates ]);
-
+)(function CityCollection(props: InnerProps) {
     useEffect(function () {
-        const coordinatesKeys = Object.keys(props.coordinates);
-
-        if (coordinatesKeys !== Object.keys(props.cities)) {
-            if (coordinatesKeys.length < 3) {
+        if (props.coordinatesList.length !== props.cityList.length) {
+            if (props.coordinatesList.length < 3) {
                 throw new Error("At least three cities must be placed");
             }
 
-            const references = coordinatesKeys.map(idString => {
-                const id = parseInt(idString);
-
-                return {
-                    id,
-                    coordinates: props.coordinates[id],
-                };
-            });
-
-            Object.values(props.cities).forEach(({ id }) => {
-                if (!props.coordinates[id]) {
-                    const refs = references.map(value => {
-                        const distance = DataService.getDistance(id, value.id) / DataService.getScale();
-
-                        return {
-                            ...value.coordinates,
-                            distance,
-                        };
-                    }) as [ ReferencePoint, ReferencePoint, ReferencePoint ];
-
-                    const trilaterizedCoordinates = trilaterize(...refs);
-
-                    store.dispatch(actions.updateCoordinates(id, trilaterizedCoordinates));
-                }
-            });
+            DataService.trilaterizeAll();
         }
 
-    }, [ props.coordinates, props.cities ]);
+    }, [ props.coordinatesList, props.cityList ]);
+
+    const cities = useMemo(function () {
+        return props.coordinatesList.map(([ id, coordinates ]) => (
+            <CityComponent id={ id } position={ coordinates } key={ id }/>
+        ));
+    }, [ props.coordinatesList ]);
 
     return (
         <>

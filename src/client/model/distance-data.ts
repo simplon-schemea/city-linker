@@ -13,13 +13,8 @@ export interface JSONDistanceData {
 
 export type DistanceData = {
     [k: number]: {
-        [k: number]: Distance
+        [k: number]: number
     }
-}
-
-export interface Distance {
-    id: number
-    distance: number
 }
 
 export namespace Distance {

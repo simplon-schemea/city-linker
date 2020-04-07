@@ -1,8 +1,7 @@
 import { ReferencePoint } from "@model/reference-point";
 import { Point } from "@model/point";
 
-export function trilaterize(...references: [ ReferencePoint, ReferencePoint, ReferencePoint ]): Point {
-    const [ A, B, C ] = references;
+export function trilaterize(A: ReferencePoint, B: ReferencePoint, C: ReferencePoint): Point {
 
     const r1 = A.distance ** 2 - B.distance ** 2 - A.x ** 2 + B.x ** 2 - A.y ** 2 + B.y ** 2;
     const r2 = B.distance ** 2 - C.distance ** 2 - B.x ** 2 + C.x ** 2 - B.y ** 2 + C.y ** 2;

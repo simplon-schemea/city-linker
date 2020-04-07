@@ -2,21 +2,33 @@ import { DistanceData } from "@model/distance-data";
 import { Actions } from "./actions";
 import { City } from "@model/city";
 import { Point } from "@model/point";
+import { ID } from "../math/id";
+
+export type  StateCoordinates = { [k: number]: Point };
+
+export interface Link {
+    a: ID;
+    b: ID;
+}
 
 export interface State {
     distances: DistanceData
     cities: { [k: number]: City }
-    coordinates: { [k: number]: Point }
     map: {
-        scale?: number
+        coordinates: StateCoordinates
+        links: Link[]
+        scale: number
     }
 }
 
 const initialState: State = {
     distances: {},
     cities: {},
-    coordinates: {},
-    map: {},
+    map: {
+        coordinates: {},
+        links: [],
+        scale: 1,
+    },
 };
 
 export function reducer(state: State = initialState, action: Actions): State {
@@ -30,9 +42,23 @@ export function reducer(state: State = initialState, action: Actions): State {
         case "[DATA] Update Coordinates":
             return {
                 ...state,
-                coordinates: {
-                    ...state.coordinates,
-                    [action.id]: action.coordinates,
+                map: {
+                    ...state.map,
+                    coordinates: {
+                        ...state.map.coordinates,
+                        [action.id]: action.coordinates,
+                    },
+                },
+            };
+        case "[DATA] Bulk Coordinates Update":
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    coordinates: {
+                        ...state.map.coordinates,
+                        ...action.coordinates,
+                    },
                 },
             };
         case "[DATA] Update Scale":
@@ -40,8 +66,8 @@ export function reducer(state: State = initialState, action: Actions): State {
                 ...state,
                 map: {
                     ...state.map,
-                    scale: action.scale
-                }
+                    scale: action.scale,
+                },
             };
         default:
             return state;
