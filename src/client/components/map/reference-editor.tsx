@@ -1,11 +1,9 @@
 import { connect } from "react-redux";
 import { State } from "@store/reducer";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Point } from "@model/point";
 import { CityComponent } from "./city";
-import { hookAttribute } from "../../core/hook";
-import { ViewBox } from "../../core/viewbox";
-import { createSvgCoordinateMapper } from "../../core/coordinate-mapper";
+import { useSVGCoordinateMapper } from "../../core/coordinate-mapper";
 import { DataService } from "@services/data.service";
 import { mapMouseToPoint } from "../../core/mouse";
 import { store } from "@store/index";
@@ -13,16 +11,16 @@ import { actions } from "@store/actions";
 import { DistanceVisualizeComponent } from "./distance-visualizer";
 import { DistanceRadialGradientDefinition } from "./defs/distance-radial-gradient";
 import { selectors } from "@store/selectors";
-import { SVGContext } from "../core/svg-context";
+import { ID } from "../../math/id";
 
 interface CityData {
-    id: number
+    id: ID
     name: string
     coordinates: Point
 }
 
 interface OuterProps {
-    cities: [ number, number, number ]
+    cities: [ ID, ID, ID ]
 }
 
 interface InnerProps {
@@ -45,41 +43,21 @@ export const ReferenceEditorComponent = connect(
         return props.references.filter(city => city.coordinates).map(city => city.id);
     }, [ props.references ]);
 
-    const svg = useContext(SVGContext) as SVGSVGElement;
-
-    if (!svg) {
-        throw new Error("SVGContext not provided");
-    }
-
     const [ cursor, setCursor ] = useState<Point>();
-    const [ viewBox, setViewBox ] = useState(() => new ViewBox(svg.viewBox));
-    const [ SVGBounds, setSVGBounds ] = useState(() => svg.getBoundingClientRect());
+
 
     const cursorRef = useRef(cursor);
     cursorRef.current = cursor;
 
+    const SVGMapper = useSVGCoordinateMapper();
+
+    const svg = SVGMapper.svg;
+
     useEffect(function () {
-        function listener() {
-            setSVGBounds(svg.getBoundingClientRect());
+        if (placedCities.length > 2) {
+            return;
         }
 
-        const observer = hookAttribute(svg, "viewBox", (oldValue, newValue) => {
-            setViewBox(new ViewBox(newValue));
-        });
-
-        addEventListener("resize", listener);
-
-        return () => {
-            observer.disconnect();
-            svg.removeEventListener("resize", listener);
-        };
-    }, [ svg, setSVGBounds, setViewBox ]);
-
-    const SVGMapper = useMemo(function () {
-        return createSvgCoordinateMapper(SVGBounds, viewBox);
-    }, [ SVGBounds, viewBox ]);
-
-    useEffect(function () {
         const id = props.references[placedCities.length]?.id;
 
         const callbacks: {
@@ -93,14 +71,15 @@ export const ReferenceEditorComponent = connect(
 
                 setCursor(position);
             },
+
             mouseleave() {
                 setCursor(undefined);
             },
+
             click() {
                 if (!cursorRef.current) {
                     throw new Error("cursor position is undefined");
                 }
-
                 store.dispatch(actions.updateCoordinates(id, cursorRef.current));
             },
         };
@@ -138,7 +117,7 @@ export const ReferenceEditorComponent = connect(
             const visible = placedCities.length === 2;
 
             return placedCities.slice(0, 2).map((id, index, { length }) => {
-                const i = visible ? index : (length - index - 1);
+                const i = visible ? (length - index - 1) : index;
 
                 const distance = selectors.scaledDistanceBetween(id, props.references[2].id)(state);
                 const position = selectors.coordinatesWithID(id)(state);

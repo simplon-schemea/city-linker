@@ -42,6 +42,9 @@ const composedSelectors = Object.assign(selectors, {
     cityWithName(name: string) {
         return createSelector(selectors.cities, cities => Object.values(cities).find(city => city.name === name));
     },
+    cityWithID(id: ID) {
+        return createSelector(selectors.cities, cities => cities[id]);
+    },
 });
 
 export { composedSelectors as selectors };

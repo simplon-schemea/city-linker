@@ -1,16 +1,19 @@
 import "./city.scss";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { Point } from "@model/point";
 import { connect } from "react-redux";
 import { City } from "@model/city";
 import { State } from "@store/reducer";
 import { selectors } from "@store/selectors";
+import { ID } from "../../math/id";
 
 interface OuterProps {
-    id: number
+    id: ID
+    highlighted?: boolean
     position?: Point
     radius?: number
     opacity?: number
+    onClick?: MouseEventHandler<SVGGElement>
 }
 
 interface InnerProps {
@@ -18,6 +21,7 @@ interface InnerProps {
     position: Point
     radius: number
     opacity?: number
+    onClick?: MouseEventHandler<SVGGElement>
 }
 
 export const CityComponent = connect(
@@ -29,16 +33,17 @@ export const CityComponent = connect(
             position: props.position || selectors.coordinatesWithID(props.id)(state),
             radius: props.radius || 7,
             opacity: props.opacity,
+            onClick: props.onClick,
         });
     },
 )(
     function City(props: InnerProps) {
-        if (!props.position) {
+        if (!props.city) {
             debugger;
         }
 
         return (
-            <g opacity={ props.opacity } className="city-container">
+            <g opacity={ props.opacity } className="city-container" onClick={ props.onClick }>
                 <text x={ props.position.x } textAnchor="middle" y={ props.position.y - 15 }>
                     { props.city.name }
                 </text>

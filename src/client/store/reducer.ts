@@ -69,6 +69,20 @@ export function reducer(state: State = initialState, action: Actions): State {
                     scale: action.scale,
                 },
             };
+        case "[DATA] Create Link":
+            return {
+                ...state,
+                map: {
+                    ...state.map,
+                    links: [
+                        ...state.map.links,
+                        {
+                            a: action.link[0],
+                            b: action.link[1],
+                        },
+                    ],
+                },
+            };
         default:
             return state;
     }

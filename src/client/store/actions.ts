@@ -3,6 +3,7 @@ import { DistanceData } from "@model/distance-data";
 import { City } from "@model/city";
 import { Point } from "@model/point";
 import { StateCoordinates } from "./reducer";
+import { ID } from "../math/id";
 
 function createAction<Type extends string>(type: Type): Action<Type>;
 function createAction<Type extends string, Props>(type: Type, props: Props): Action<Type> & Props;
@@ -31,6 +32,10 @@ export const actions = {
 
     updateScale(scale: number) {
         return createAction("[DATA] Update Scale", { scale });
+    },
+
+    createLink(a: ID, b: ID) {
+        return createAction("[DATA] Create Link", { link: [ a, b ] });
     },
 };
 

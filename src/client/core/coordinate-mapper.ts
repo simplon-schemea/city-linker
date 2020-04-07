@@ -1,5 +1,8 @@
 import { ViewBox } from "./viewbox";
 import { Point } from "@model/point";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { SVGContext } from "@components/core/svg-context";
+import { hookAttribute } from "./hook";
 
 export function createSvgCoordinateMapper(bounds: DOMRect, viewBox: ViewBox) {
     const aspect = bounds.width / bounds.height;
@@ -35,4 +38,38 @@ export function createSvgCoordinateMapper(bounds: DOMRect, viewBox: ViewBox) {
             return distance * scale;
         },
     };
+}
+
+export function useSVGCoordinateMapper() {
+    const svg = useContext(SVGContext) as SVGSVGElement;
+
+    if (!svg) {
+        throw new Error("SVGContext not provided");
+    }
+
+    const [ viewBox, setViewBox ] = useState(() => new ViewBox(svg.viewBox));
+    const [ bounds, setSVGBounds ] = useState(() => svg.getBoundingClientRect());
+
+    useEffect(function () {
+        function listener() {
+            setSVGBounds(svg.getBoundingClientRect());
+        }
+
+        const observer = hookAttribute(svg, "viewBox", (oldValue, newValue) => {
+            setViewBox(new ViewBox(newValue));
+        });
+
+        addEventListener("resize", listener);
+
+        return () => {
+            observer.disconnect();
+            svg.removeEventListener("resize", listener);
+        };
+    }, [ svg, setSVGBounds, setViewBox ]);
+
+    return useMemo(function () {
+        const mapper = createSvgCoordinateMapper(bounds, viewBox);
+        return Object.assign(mapper, { bounds, viewBox, svg });
+    }, [ bounds, viewBox ]);
+
 }
