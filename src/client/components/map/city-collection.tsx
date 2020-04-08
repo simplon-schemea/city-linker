@@ -43,18 +43,31 @@ export const CityCollectionComponent = connect(
     }, [ props.coordinatesList, props.cityList ]);
 
     useEffect(function () {
-        function onClick(event: MouseEvent) {
-            setCursor(mapper.coordinates(mapMouseToPoint(event, "client")));
-        }
+        const callbacks: { [k in keyof SVGSVGElementEventMap]?: (event: MouseEvent) => void } = {
+            mousemove(event) {
+                setCursor(mapper.coordinates(mapMouseToPoint(event, "client")));
+            },
+            mousedown(event) {
+                event.preventDefault();
+            },
+            click(event) {
+                if (event.target === svg) {
+                    setPeer(null);
+                }
+            },
+        };
 
-        svg.addEventListener("mousemove", onClick);
+        const cleaners = Object.entries(callbacks).map(([ name, callback ]) => {
+            svg.addEventListener(name, callback as EventListenerOrEventListenerObject);
+            return () => svg.removeEventListener(name, callback as EventListenerOrEventListenerObject);
+        });
 
-        return () => svg.removeEventListener("mousemove", onClick);
+        return () => cleaners.forEach(fn => fn());
     }, [ setCursor, mapper ]);
 
     const [ peer, setPeer ] = useState<ID | null>(null);
 
-    const cities = props.coordinatesList.map(([ id, coordinates ]) => {
+    const cities = props.coordinatesList.map(([ id, coordinates ], index) => {
         function onClick() {
             if (peer) {
                 if (peer !== id) {
@@ -67,7 +80,8 @@ export const CityCollectionComponent = connect(
         }
 
         return (
-            <CityComponent id={ id } position={ coordinates } key={ id } onClick={ onClick } highlighted={ peer === id }/>
+            <CityComponent id={ id } position={ coordinates } key={ id } onClick={ onClick } highlighted={ peer === id }
+                           delay={ 100 + index ** 1.2 * 25 } animate={ true }/>
         );
     });
 
@@ -115,8 +129,8 @@ export const CityCollectionComponent = connect(
     return (
         <g className="city-collection-container">
             { lines }
-            { cities }
             { currentLink }
+            { cities }
         </g>
     );
 });

@@ -4,12 +4,13 @@
     stroke: #999;
     transition: stroke 300ms;
 
-    &.active, &:hover {
+    &.active {
       stroke: #555;
+      stroke-width: 3;
     }
 
     &:not(.active) {
-      transition: stroke 300ms, x2 ease-out 500ms, y2 ease-out 500ms;
+      transition: stroke 300ms;
     }
   }
 
@@ -19,7 +20,7 @@
     .link:first-child {
       visibility: hidden;
       pointer-events: all;
-      stroke-width: 25;
+      stroke-width: 15;
     }
 
     &:hover > .link {

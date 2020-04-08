@@ -8,5 +8,4 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(express.static(path.join(ROOT, "dist/www")));
 
-
 app.listen(process.env.PORT || 8080);

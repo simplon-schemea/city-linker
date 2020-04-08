@@ -1,5 +1,44 @@
+@keyframes city-circle-enter {
+  0% {
+    visibility: unset;
+    transform: scale(0);
+    opacity: 0.25;
+  }
+
+  100% {
+    visibility: unset;
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes city-text-enter {
+  0% {
+    visibility: unset;
+    transform: scaleX(0.75) translateY(15px);
+    opacity: 0.3;
+  }
+
+  75% {
+    visibility: unset;
+    transform: scaleX(1.075) translateY(-1px);
+    opacity: 1;
+  }
+
+  100% {
+    visibility: unset;
+    transform: scaleX(1) translateY(0);
+    opacity: 1;
+  }
+}
+
 .city-container {
   cursor: pointer;
+
+  text, circle {
+    transform-origin: inherit;
+    animation-delay: inherit;
+  }
 
   text {
     font-family: Roboto, sans-serif;
@@ -9,5 +48,24 @@
 
   circle {
     fill: #444;
+  }
+
+  &.entered {
+    circle, text {
+      visibility: hidden;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-out;
+    }
+
+    circle {
+      animation-duration: 250ms;
+      animation-name: city-circle-enter;
+    }
+
+    text {
+      animation-duration: 300ms;
+      animation-name: city-text-enter;
+      animation-delay: 250ms;
+    }
   }
 }
