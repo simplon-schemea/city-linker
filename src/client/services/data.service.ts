@@ -6,8 +6,11 @@ import { selectors } from "@store/selectors";
 import { ReferencePoint } from "@model/reference-point";
 import { trilaterize } from "../math/trilaterize";
 import { triggerDownload } from "../core/trigger-download";
+import { State } from "@store/reducer";
 
 export namespace DataService {
+
+
     export function loadDistances() {
         fetch("/assets/distances.json")
             .then(value => value.json())
@@ -45,12 +48,13 @@ export namespace DataService {
             );
     }
 
-    export function generateLinkJSON(indent?: number) {
-        const state = store.getState();
+    export function generateDataJSON(indent?: number) {
+        const state: State = store.getState();
 
-        const links = selectors.links(state).map(ids => ids.map(id => selectors.cityWithID(id)(state).name));
+        const data = { ...state };
+        delete data.distances;
 
-        return JSON.stringify(links, null, indent);
+        return JSON.stringify(data, null, indent);
     }
 
     export function computeScale(...ids: [ number, number ]) {
@@ -76,7 +80,7 @@ export namespace DataService {
             throw new Error("unexpected falsy scale");
         }
 
-        if (store.getState().map.scale !== scale) {
+        if (store.getState().scale !== scale) {
             store.dispatch(actions.updateScale(scale));
         }
     }
@@ -114,11 +118,11 @@ export namespace DataService {
 }
 
 
-(window as any).exportLinks = () => {
+(window as any).exportJSON = () => {
     triggerDownload(
-        DataService.generateLinkJSON(2),
+        DataService.generateDataJSON(2),
         {
-            filename: "links.json",
+            filename: "data.json",
             mimetype: "text/json",
         },
     );

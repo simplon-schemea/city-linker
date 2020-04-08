@@ -5,22 +5,19 @@ import { Point } from "@model/point";
 
 const selectors = {
     coordinates(state: State) {
-        return state.map.coordinates;
-    },
-    map(state: State) {
-        return state.map;
+        return state.coordinates;
     },
     cities(state: State) {
         return state.cities;
     },
     links(state: State) {
-        return state.map.links;
+        return state.links;
     },
     distances(state: State) {
         return state.distances;
     },
     scale(state: State) {
-        return state.map.scale;
+        return state.scale;
     },
 };
 

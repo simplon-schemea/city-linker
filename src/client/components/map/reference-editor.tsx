@@ -36,7 +36,7 @@ export const ReferenceEditorComponent = connect(
             ...state.cities[id],
             coordinates: selectors.coordinatesWithID(id)(state),
         })),
-        scale: state.map.scale,
+        scale: selectors.scale(state),
     }),
 )(function ReferenceEditor(props: InnerProps) {
     const placedCities = useMemo(function () {
@@ -108,7 +108,7 @@ export const ReferenceEditorComponent = connect(
 
     const cursorCity = useMemo(function () {
         const data = props.references[placedCities.length];
-        return data && cursor ? <CityComponent id={ data.id } position={ cursor } opacity={ 0.75 }/> : null;
+        return data && cursor ? <CityComponent id={ data.id } position={ cursor } cursor={ true }/> : null;
     }, [ placedCities.length, cursor, SVGMapper ]);
 
     const distanceVisualizer = useMemo(function () {

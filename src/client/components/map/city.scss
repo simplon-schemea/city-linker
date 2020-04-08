@@ -38,6 +38,7 @@
   text, circle {
     transform-origin: inherit;
     animation-delay: inherit;
+    transition: fill 250ms ease-in-out;
   }
 
   text {
@@ -48,6 +49,14 @@
 
   circle {
     fill: #444;
+  }
+
+  &:not(.cursor) {
+    &.highlighted, &:hover {
+      text, circle {
+        fill: black;
+      }
+    }
   }
 
   &.entered {

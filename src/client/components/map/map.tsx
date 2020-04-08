@@ -25,8 +25,8 @@ export const MapComponent = connect(
     (state: State): InnerProps => {
         return {
             references: referencesCityNames,
-            coordinates: state.map.coordinates,
-            cities: state.cities,
+            coordinates: selectors.coordinates(state),
+            cities: selectors.cities(state),
         };
     },
 )(

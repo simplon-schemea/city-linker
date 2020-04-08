@@ -1,5 +1,5 @@
 import "./city-collection.scss";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { connect, useSelector } from "react-redux";
 import { State } from "@store/reducer";
 import { CityComponent } from "./city";
@@ -67,23 +67,49 @@ export const CityCollectionComponent = connect(
 
     const [ peer, setPeer ] = useState<ID | null>(null);
 
-    const cities = props.coordinatesList.map(([ id, coordinates ], index) => {
-        function onClick() {
-            if (peer) {
-                if (peer !== id) {
-                    store.dispatch(actions.createLink(peer, id));
-                }
-                setPeer(null);
-            } else {
-                setPeer(id);
-            }
-        }
+    let cities: JSX.Element[];
+    {
+        const oldCities = useRef(props.coordinatesList).current;
+        const newCities = useMemo(function () {
+            return oldCities.length === 0 ?
+                [] :
+                props.coordinatesList.filter(city => !oldCities.find(([ id ]) => id === city[0]));
+        }, [ oldCities, props.coordinatesList ]);
 
-        return (
-            <CityComponent id={ id } position={ coordinates } key={ id } onClick={ onClick } highlighted={ peer === id }
-                           delay={ 100 + index ** 1.2 * 25 } animate={ true }/>
-        );
-    });
+        const mapper = useCallback(function (animate: boolean) {
+            return function ([ id, coordinates ]: [ number, Point ], index: number) {
+                function onClick() {
+                    if (peer) {
+                        if (peer !== id) {
+                            store.dispatch(actions.createLink(peer, id));
+                        }
+                        setPeer(null);
+                    } else {
+                        setPeer(id);
+                    }
+                }
+
+                function animationProps() {
+                    return animate && {
+                        delay: 500 + index ** 1.25 * 25,
+                        animate: true,
+                    };
+                }
+
+                return (
+                    <CityComponent id={ id } position={ coordinates } key={ id } onClick={ onClick } highlighted={ peer === id }
+                                   { ...animationProps() }   />
+                );
+            };
+        }, [ peer, setPeer ]);
+
+        cities = useMemo(function () {
+            return [
+                ...oldCities.map(mapper(false)),
+                ...newCities.map(mapper(true)),
+            ];
+        }, [ oldCities, newCities, mapper ]);
+    }
 
     const currentLink = useMemo(function () {
         if (!peer || !cursor) {

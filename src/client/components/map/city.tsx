@@ -1,5 +1,5 @@
 import "./city.scss";
-import React, { CSSProperties, MouseEventHandler, SVGProps } from "react";
+import React, { MouseEventHandler, SVGProps } from "react";
 import { Point } from "@model/point";
 import { connect } from "react-redux";
 import { City } from "@model/city";
@@ -11,6 +11,7 @@ import { Transition } from "react-transition-group";
 
 interface OuterProps {
     id: ID
+    cursor?: boolean
     delay?: number
     highlighted?: boolean
     position?: Point
@@ -18,13 +19,17 @@ interface OuterProps {
     opacity?: number
     onClick?: MouseEventHandler<SVGGElement>
     animate?: boolean
+    in?: boolean
 }
 
 interface InnerProps {
     city: City
     position: Point
     radius: number
+    cursor: boolean
     delay: number
+    in: boolean
+    highlighted: boolean
     opacity?: number
     onClick?: MouseEventHandler<SVGGElement>
     animate?: boolean
@@ -37,11 +42,14 @@ export const CityComponent = connect(
         return ({
             city,
             position: props.position || selectors.coordinatesWithID(props.id)(state),
-            radius: props.radius || 7,
-            opacity: props.opacity,
+            radius: props.radius || 5,
+            opacity: props.opacity || props.cursor ? 0.75 : undefined,
+            cursor: props.cursor || false,
             onClick: props.onClick,
             delay: props.delay || 0,
             animate: props.animate,
+            in: "in" in props ? props.in as boolean : true,
+            highlighted: props.highlighted || false,
         });
     },
 )(
@@ -54,18 +62,12 @@ export const CityComponent = connect(
 
         const gProps: SVGProps<SVGGElement> = {
             opacity: props.opacity,
-            className: "city-container",
+            className: classNames("city-container", props.highlighted && "highlighted", props.cursor && "cursor"),
             onClick: props.onClick,
+            style: {
+                transformOrigin: `${ x }px ${ y }px`,
+            },
         };
-
-        if (props.animate) {
-            Object.assign(gProps, {
-                style: {
-                    ...gProps.style,
-                    transformOrigin: `${ x }px ${ y }px`,
-                },
-            } as CSSProperties);
-        }
 
         function delay(value: number) {
             return props.animate ? props.delay + value + "ms" : "";
@@ -81,7 +83,7 @@ export const CityComponent = connect(
         );
 
         return props.animate ? (
-            <Transition in={ true } timeout={ 1000 } mountOnEnter={ true } unmountOnExit={ true }>
+            <Transition in={ props.in } timeout={ 1000 } mountOnEnter={ true } unmountOnExit={ true }>
                 { state => (
                     <g  { ...gProps } className={ classNames(gProps.className, state) }>
                         { content }
